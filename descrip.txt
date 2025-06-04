@@ -1,0 +1,289 @@
+Description of the Classes for "Four In a Row" Game
+Four_In_Board (inherits Board)
+
+Represents the board for the game "Four In a Row."
+Key Attributes:
+heights: Tracks the current height of tokens in each column.
+four_contig: A helper function that checks for four contiguous matching symbols in a string.
+Key Methods:
+update_board: Places a symbol in the lowest available position in a specified column or removes it if mark == 0.
+display_board: Outputs the current state of the board.
+is_win: Checks rows, columns, and diagonals for a winning condition (four contiguous symbols).
+is_draw: Returns true if the board is full and there is no winner.
+game_is_over: Combines is_win and is_draw to determine if the game has ended.
+Four_In_Player (inherits Player)
+
+Represents a human player for the "Four In a Row" game.
+Key Methods:
+getmove: Prompts the player to input their move (column index).
+Four_In_Random_Player (inherits RandomPlayer)
+
+Represents a computer player that makes random moves.
+Key Attributes:
+dimension: The number of columns on the board (7 in this case).
+Key Methods:
+getmove: Generates a random column index for the move.
+
+Classes Overview
+1. Numeracle_Tic_Tac_Two_Board (inherits Board)
+Represents the game board for "Numerical Tic-Tac-Two."
+
+Key Attributes:
+
+player_turn: A boolean tracking whether it's Player 1's turn (true) or Player 2's (false).
+player1 and player2: Sets containing the remaining available numbers for each player.
+Key Methods:
+
+update_board: Validates and places a number on the board if it's the player's turn and the number is from their set.
+display_board: Visualizes the current board state.
+is_win: Checks rows, columns, and diagonals for a winning sum of 15.
+is_draw: Returns true if all cells are filled and no player has won.
+game_is_over: Determines if the game is over by combining is_win and is_draw.
+2. Numeracle_Tic_Tac_TwoPlayer (inherits Player)
+Represents a human player.
+
+Key Attributes:
+
+st: A set containing the numbers available for the player to play.
+Key Methods:
+
+getmove: Prompts the player to select a cell and a number from their available set.
+3. Numeracle_Tic_Tac_TwoRandom_Player (inherits RandomPlayer)
+Represents a computer player making random moves.
+
+Key Attributes:
+
+st: A set containing the numbers available for the player to play.
+Key Methods:
+
+getmove: Randomly selects a position on the board and a number from its set.
+
+Unique Game Mechanics
+Number Selection:
+
+Players have distinct sets of numbers:
+Player 1: Odd numbers {1, 3, 5, 7, 9}.
+Player 2: Even numbers {2, 4, 6, 8}.
+A number can only be played once, and only by the player whose set it belongs to.
+Winning Condition:
+
+A player wins by having a row, column, or diagonal where the sum of the numbers equals 15.
+Player Turns:
+
+The game alternates turns, with player_turn toggling between true and false.
+Only the numbers in a player’s set are valid during their turn.
+Random Player Behavior:
+
+Randomly picks a cell and a number from its set for its turn.
+
+
+Key Features of Pyramic Tic-Tac-Toe
+The game board is not rectangular but has a triangular shape, which makes for a unique playing experience.
+Players can place symbols (such as 'X' and 'O') on specific spaces on the board, with some spaces being unavailable in the first and second rows.
+The goal is to win by aligning three of the same symbols either vertically, horizontally, or diagonally.
+Classes Breakdown
+1. pyramic_tic_tac_toe_board (inherits Board)
+This class represents the Pyramic Tic-Tac-Toe game board.
+
+Key Attributes:
+
+rows = 3 and columns = 5: A triangular grid of 3 rows and 5 columns, but certain spaces are unavailable.
+The board is represented by a 2D char array, where spaces are initially empty (' '), and each player’s symbol will be placed in available spots.
+Key Methods:
+
+update_board: Updates the board with the player's move. If a player chooses to undo a move, the spot is cleared.
+display_board: Visualizes the board with formatting that adjusts based on row.
+is_win: Checks for vertical, horizontal, and diagonal lines of three matching symbols to determine a winner.
+is_draw: Checks if the game is a draw (i.e., the board is full but no player has won).
+game_is_over: Combines the is_win and is_draw methods to determine if the game is finished.
+2. pyramic_tic_tac_toe_player (inherits Player)
+This class represents a human player in the game.
+
+Key Attributes:
+
+Inherits the name and symbol from the base class Player.
+Key Methods:
+
+getmove: Prompts the player for their move by asking for x and y coordinates.
+3. pyramic_tic_tac_toe_randomplayer (inherits RandomPlayer)
+This class represents a random computer player.
+
+Key Attributes:
+name = "Random Computer Player": The name of the random player.
+dimension = 0: Not used in this implementation, but typically would be useful for square grids.
+Key Methods:
+getmove: Randomly selects valid coordinates for the move. It avoids the restricted cells (those in the first and second rows) and recursively calls itself if the randomly selected spot is invalid.
+Key Mechanics
+Board Structure:
+
+Row 1: Only columns 2, 3, and 4 are available.
+Row 2: Only columns 2 and 4 are available.
+Row 3: All columns (0 through 4) are available.
+Winning Conditions:
+
+A player wins if they have three of the same symbol in a row (horizontally, vertically, or diagonally).
+Random Player Behavior:
+
+The random player chooses any valid position that isn’t part of the restricted cells. It ensures that the move is placed in an available spot by checking the constraints.
+
+Key Features of SUS (S Suspicion) Tic-Tac-Toe
+The game still takes place on a 3x3 grid, but the scoring system is based on "S" (Suspect) and "U" (Undercover) symbols.
+The game is not about simply placing matching symbols in a row, column, or diagonal but rather about forming valid "SUS" patterns, where "S" is the primary symbol and "U" represents a "suspect" spot that can lead to points.
+Classes Breakdown
+1. SUS_board (inherits Board)
+This class represents the SUS board where the game takes place.
+
+Key Attributes:
+
+score1 and score2: Scores for the two players.
+sympol1 and sympol2: Symbols for the two players.
+Board Layout: The board is a 3x3 grid, initially filled with spaces.
+Gameplay State: n_moves tracks the number of moves made on the board.
+Key Methods:
+
+check_sus: Checks for "SUS" patterns based on the position of "S" and "U" symbols on the board. It returns true if a valid "SUS" pattern exists, contributing to the score of the player who made the move.
+no_more: Determines if there are no more valid "SUS" patterns left to make, ending the game early if all possible moves have been exhausted.
+update_board: Updates the board with the player’s move and checks if it forms any "SUS" patterns, awarding points if it does.
+display_board: Displays the board along with the current scores of both players.
+is_win: Determines if a player has won based on the score and number of moves.
+is_draw: Checks if the game is a draw based on the scores and number of moves.
+game_is_over: Checks if the game is over based on the number of moves made.
+2. SUS_player (inherits Player)
+This class represents a player who plays the SUS variant of the game.
+
+Key Attributes:
+
+seq: Likely a sequence or identifier to track the player (though unused here).
+Key Methods:
+
+getmove: Prompts the player to input their move by providing the coordinates x and y.
+3. SUS_randomplayer (inherits RandomPlayer)
+This class represents a random computer player for the SUS game.
+
+Key Attributes:
+
+name: The random player is named "Random Computer Player".
+dimension: The board's dimension is 3 (for a 3x3 grid).
+Key Methods:
+
+getmove: Generates a random x and y value within the 3x3 grid.
+Mechanics of the SUS Game
+Board Layout:
+
+The board is a 3x3 grid with coordinates ranging from (0,0) to (2,2). Players take turns placing their symbols ('S' or 'U') on the board.
+SUS Pattern:
+
+A valid "SUS" pattern occurs when an "S" is surrounded by specific placements of "U" symbols in either a horizontal, vertical, or diagonal configuration.
+Example: "S" at (0,0) is valid if "U" is placed at (0,1) and (0,2).
+Scoring System:
+
+When a player completes a valid "SUS" pattern, they earn a point. The points for Player 1 and Player 2 are tracked with score1 and score2.
+Winning Condition: A player wins if they have a higher score after all moves are made or if the opponent cannot form any more valid "SUS" patterns.
+Game Over Conditions:
+
+The game ends either when all spots on the board are filled (9 moves) or when no more valid "SUS" patterns can be made.
+Draw: If both players have the same score at the end, and all moves are made, the game results in a draw.
+
+Key Features of Word Tic-Tac-Toe:
+Gameplay Mechanism:
+
+The game is still played on a 3x3 grid, but the objective is different: Players form words using the letters they place on the board.
+A word is formed when three consecutive characters in a row, column, or diagonal form a valid word that exists in a dictionary (dic.txt).
+Validating Words:
+
+A word is valid if the sequence of characters forms a word that exists in the dictionary file (dic.txt).
+Classes Breakdown
+1. Word_tic_tac_toe_board (inherits Board)
+This class represents the Word Tic-Tac-Toe game board.
+
+Key Attributes:
+
+n_moves: Tracks the number of moves made so far on the board.
+Board Layout: A 3x3 grid of characters, initialized with spaces.
+Key Methods:
+
+is_valid_word: Takes three characters (from a row, column, or diagonal) and checks if they form a valid word by reading the dictionary file (dic.txt).
+update_board: Updates the board with a new move, either adding a character or removing one if the move is cancelled (indicated by sympol == 0).
+display_board: Prints the current state of the board with the coordinates of each cell.
+is_win: Checks for any winning conditions by verifying if any row, column, or diagonal forms a valid word.
+is_draw: Checks if the game is a draw (i.e., all 9 moves are made and no winner is found).
+game_is_over: Checks if the game is over (either due to a win or a draw).
+2. Word_tic_tac_toe_player (inherits Player)
+This class represents a player in the Word Tic-Tac-Toe game.
+
+Key Attributes:
+
+name: The player's name.
+symbol: The player's character symbol (e.g., 'X', 'O', etc.).
+Key Methods:
+
+getmove: Prompts the player to input their move, which consists of the row and column (x, y) and a character to place on the board.
+3. Word_tic_tac_toe_randomplayer (inherits RandomPlayer)
+This class represents a random computer player in the Word Tic-Tac-Toe game.
+
+Key Attributes:
+
+name: The name of the random player ("Random Computer Player").
+dimension: The board dimension (set to 3 for a 3x3 grid).
+symbol: The randomly chosen character symbol for the random player.
+Key Methods:
+
+getmove: Randomly generates x and y coordinates for the move and selects a random character (from 'A' to 'Z') to place on the board.
+Mechanics of Word Tic-Tac-Toe
+Board Layout:
+
+The board is a 3x3 grid of characters. Players place their characters in the grid to form valid words.
+Word Validation:
+
+After each move, the game checks if there are any rows, columns, or diagonals that form valid words by consulting the dic.txt file.
+If a valid word is formed, the game considers it a "win" for that player.
+Game Over Conditions:
+
+The game ends when either:
+A player forms a valid word (row, column, or diagonal).
+All 9 moves are made and no valid words are formed (i.e., a draw).
+Draw Condition:
+
+A draw occurs if all 9 cells are filled, but no player has formed a valid word.
+Classes Overview
+Ultimate<T> (inherits Board<T>):
+
+This is the main class for the Ultimate Tic-Tac-Toe board. The board is a 9x9 grid composed of 3x3 sub-grids, and each sub-grid operates as a regular Tic-Tac-Toe game.
+Attributes:
+winners: A 3x3 matrix tracking the results of each sub-grid (whether it’s won by 'X', 'O', or still open).
+_is_win: A helper function that checks if there’s a winner in a given 3x3 sub-grid.
+n_moves: The count of the moves played.
+board: A 9x9 board represented as a 2D character array.
+Methods:
+update_board(int x, int y, T mark): Updates the board with a new move. If mark is 0, it undoes the previous move.
+display_board(): Displays the current state of the 9x9 grid and the 3x3 matrix representing the winners of each sub-grid.
+is_win(): Checks if there’s a winner across the 3x3 matrix of winners.
+_is_win(int sr, int sc): Checks for a win condition within a specific 3x3 sub-grid.
+is_draw(): Checks if the game is a draw (if all sub-grids are filled but no winner is found).
+game_is_over(): Checks if the game is over, either by win or draw.
+Ultimate_Player<T> (inherits Player<T>):
+
+Represents a player who manually inputs moves.
+Method:
+getmove(int& x, int& y): Prompts the user to input their move for a position on the board.
+Ultimate_Random_Player<T> (inherits RandomPlayer<T>):
+
+Represents a random computer player.
+Method:
+getmove(int& x, int& y): Selects a random position on the 9x9 grid.
+Game Mechanics
+9x9 Board and 3x3 Sub-Grids:
+
+The main board is a 9x9 grid, divided into 3x3 smaller grids. Each of these smaller grids has a winner (if any), which determines the overall winner.
+Winning Conditions:
+
+Each sub-grid is a regular Tic-Tac-Toe game, and when a player wins a sub-grid, the winner is recorded in the winners matrix.
+After each move, the _is_win function checks the corresponding sub-grid for a winner and updates the winners matrix.
+If a player wins 3 sub-grids in a row, column, or diagonal (in the winners matrix), the overall game is won by that player.
+The game ends when either:
+A player wins by completing a row, column, or diagonal of sub-grid winners.
+All sub-grids are filled without a winner, resulting in a draw.
+Updating and Displaying the Board:
+
+The update_board function allows players to place their marks (either 'X' or 'O') on the 9x9 grid, and it ensures the move is valid by checking if the cell is unoccupied and the corresponding sub-grid is still open.
+After every move, the display_board function is called to display both the current 9x9 grid and the smaller 3x3 grid showing the winner of each sub-grid.
